@@ -1,15 +1,20 @@
 {
+  "type": "module",
   "name": "social_meadia",
   "version": "1.0.0",
   "description": "this is a complete backend of a social media app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [
     "backend",
     "nodejs"
   ],
   "author": "Ayush Amberkar",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.1"
+  }
 }
