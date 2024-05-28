@@ -1,0 +1,234 @@
+<mxfile host="65bd71144e">
+    <diagram id="k15_e6HLl1s-I2_EZL9g" name="Page-1">
+        <mxGraphModel dx="3657" dy="2890" grid="0" gridSize="11" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="6" style="edgeStyle=none;html=1;" parent="1" source="2" target="4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="npm init" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-2400" y="-2179" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" style="edgeStyle=none;html=1;" parent="1" source="4" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="readme.md&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2295" y="-2179" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="edgeStyle=none;html=1;" parent="1" source="7" target="9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="new github&amp;nbsp;&lt;br&gt;branch" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2160" y="-2184" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" style="edgeStyle=none;html=1;fontSize=12;" parent="1" source="9" target="15" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="git remote add origin&amp;nbsp;&lt;br&gt;and push&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2040" y="-2184" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;Social Media App Backend&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2187" y="-2295" width="280" height="38" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" style="edgeStyle=none;html=1;fontSize=12;" parent="1" source="15" target="16" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="initial commit&amp;nbsp;&lt;br&gt;and push" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="-1830" y="-2184" width="100" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" style="edgeStyle=none;html=1;entryX=1.005;entryY=0.585;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;" parent="1" source="16" target="20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="created public/temp folder" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="-1860" y="-2094" width="160" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" style="edgeStyle=none;html=1;fontSize=12;" parent="1" source="20" target="24" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="added .gitkeep&amp;nbsp;&lt;br&gt;file in it" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="-2005" y="-2099" width="110" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" style="edgeStyle=none;html=1;fontSize=12;" parent="1" source="24" target="27" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="created .gittignore&lt;br&gt;file" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="-2160" y="-2099" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="src/app.js&lt;br&gt;infex.js&lt;br&gt;content.js&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="-2265" y="-2109" width="70" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="phase 2&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2415" y="-2019" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="" style="edgeStyle=none;html=1;" parent="1" source="33" target="38" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="src folders" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2390" y="-1959" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" style="edgeStyle=none;html=1;" parent="1" source="38" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-2080" y="-1944" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="42" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="38" target="41" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="controllers&lt;br&gt;models&lt;br&gt;utils&lt;br&gt;routes&lt;br&gt;middlewares" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-2250" y="-1989" width="120" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="" style="edgeStyle=none;html=1;" parent="1" source="41" target="44" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="npm install prettier&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2080" y="-1959" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value=".prettierrc&lt;br&gt;.prettierignore" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1880" y="-1974" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="phase 1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2415" y="-2219" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;setup&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2415" y="-2259" width="67" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="Databasse connection" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=20;" parent="1" vertex="1">
+                    <mxGeometry x="-2415" y="-1857" width="216" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" style="edgeStyle=none;html=1;" parent="1" source="49" target="51" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="npm install mongoose&lt;br&gt;dotenv&lt;br&gt;exrpress" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2404" y="-1805" width="135" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="" style="edgeStyle=none;html=1;" parent="1" source="51" target="54" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="create mongodb&lt;br&gt;database" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2235" y="-1798" width="105" height="41" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="" style="edgeStyle=none;html=1;" parent="1" source="54" target="56" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="create global constant&lt;br&gt;constants.js&amp;nbsp;&lt;br&gt;export const DB_NAME = &quot;socialApp&quot;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2106" y="-1805" width="219" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="" style="edgeStyle=none;html=1;" parent="1" source="56" target="58" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="connect with database with mongoose" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-1808" y="-1790" width="221" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="" style="edgeStyle=none;html=1;" parent="1" source="58" target="60" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" value="" style="edgeStyle=none;html=1;" parent="1" source="58" target="71" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="1 st approach using iffi function" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2077" y="-1689" width="183" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="" style="edgeStyle=none;html=1;" parent="1" source="60" target="62" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="2nd approach using seaprate file in db folder" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2113" y="-1583" width="255" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="65" value="" style="edgeStyle=none;html=1;" parent="1" source="62" target="64" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="create&amp;nbsp; src/db/index.js" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2367" y="-1475" width="135" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" value="" style="edgeStyle=none;html=1;" parent="1" source="64" target="66" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="write function for connection&amp;nbsp;&lt;br&gt;and export it" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2170" y="-1482" width="171" height="41" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="" style="edgeStyle=none;html=1;" parent="1" source="66" target="69" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="import it in src/index.js" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-1902" y="-1474" width="137" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="" style="edgeStyle=none;html=1;" parent="1" source="69" target="73" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" value="add experimental in &quot;scipts&quot;&lt;br&gt;&lt;br&gt;nodemon -r dotenv/config--experimental-josn-modules sec/index.js" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1748" y="-1523.5" width="190" height="125" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" value=";(()=&amp;gt;{})()" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1782.5" y="-1706" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="Connected" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-1990" y="-1335" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="75" target="76" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" value="npm install cookie-parser&lt;br&gt;cors" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-2341" y="-1157" width="151" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="" style="edgeStyle=none;html=1;" parent="1" source="76" target="78" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="import it in src/app.js" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2141" y="-1140" width="128" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="78" target="89">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="78" value="&lt;div style=&quot;color: rgb(171, 178, 191); background-color: rgb(40, 44, 52); font-family: &amp;quot;JetBrains Mono&amp;quot;, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-size: 15px; line-height: 20px;&quot;&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;color: #e5c07b;&quot;&gt;app&lt;/span&gt;.&lt;span style=&quot;color: #61afef;&quot;&gt;use&lt;/span&gt;(&lt;span style=&quot;color: #61afef;&quot;&gt;express&lt;/span&gt;.&lt;span style=&quot;color: #61afef;&quot;&gt;json&lt;/span&gt;({ &lt;span style=&quot;color: #ef596f;&quot;&gt;limit&lt;/span&gt;: &lt;span style=&quot;color: #89ca78;&quot;&gt;&quot;16kb&quot;&lt;/span&gt; }));&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;color: #e5c07b;&quot;&gt;app&lt;/span&gt;.&lt;span style=&quot;color: #61afef;&quot;&gt;use&lt;/span&gt;(&lt;span style=&quot;color: #61afef;&quot;&gt;express&lt;/span&gt;.&lt;span style=&quot;color: #61afef;&quot;&gt;urlencoded&lt;/span&gt;({ &lt;span style=&quot;color: #ef596f;&quot;&gt;extended&lt;/span&gt;: &lt;span style=&quot;color: #d19a66;&quot;&gt;true&lt;/span&gt;, &lt;span style=&quot;color: #ef596f;&quot;&gt;limit&lt;/span&gt;: &lt;span style=&quot;color: #89ca78;&quot;&gt;&quot;16kb&quot;&lt;/span&gt; }));&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;color: #e5c07b;&quot;&gt;app&lt;/span&gt;.&lt;span style=&quot;color: #61afef;&quot;&gt;use&lt;/span&gt;(&lt;span style=&quot;color: #61afef;&quot;&gt;express&lt;/span&gt;.&lt;span style=&quot;color: #61afef;&quot;&gt;static&lt;/span&gt;(&lt;span style=&quot;color: #89ca78;&quot;&gt;&quot;public&quot;&lt;/span&gt;));&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;color: #e5c07b;&quot;&gt;app&lt;/span&gt;.&lt;span style=&quot;color: #61afef;&quot;&gt;use&lt;/span&gt;(&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&amp;nbsp; &amp;nbsp; &lt;span style=&quot;color: #61afef;&quot;&gt;cors&lt;/span&gt;({&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;span style=&quot;color: #ef596f;&quot;&gt;origin&lt;/span&gt;: &lt;span style=&quot;color: #89ca78;&quot;&gt;`&lt;/span&gt;&lt;span style=&quot;color: #d55fde;&quot;&gt;${&lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;process&lt;/span&gt;.&lt;span style=&quot;color: #ef596f;&quot;&gt;env&lt;/span&gt;.&lt;span style=&quot;color: #ef596f;&quot;&gt;ORIGIN&lt;/span&gt;&lt;span style=&quot;color: #d55fde;&quot;&gt;}&lt;/span&gt;&lt;span style=&quot;color: #89ca78;&quot;&gt;`&lt;/span&gt;,&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;span style=&quot;color: #ef596f;&quot;&gt;credentials&lt;/span&gt;: &lt;span style=&quot;color: #d19a66;&quot;&gt;true&lt;/span&gt;,&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&amp;nbsp; &amp;nbsp; }),&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;);&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;color: #e5c07b;&quot;&gt;app&lt;/span&gt;.&lt;span style=&quot;color: #61afef;&quot;&gt;use&lt;/span&gt;(&lt;span style=&quot;color: #61afef;&quot;&gt;cookieParser&lt;/span&gt;());&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-1982" y="-1233" width="585" height="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Middleares&lt;/font&gt;&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-2359" y="-368" width="106" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="81" value="/instagram" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="-2332.5" y="-310" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" value="res.send(&quot;ayush&quot;)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="-2034" y="-315" width="166" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="83" value="req,res" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="-1990" y="-361" width="74" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=-0.014;entryY=0.562;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=18;" parent="1" source="84" target="86" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="-2173" y="-143"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="84" value="" style="whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="-2197" y="-306" width="47" height="31" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="check if user is logged in" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="-2040" y="-162" width="215" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="89" target="93">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="97" style="edgeStyle=none;html=1;" edge="1" parent="1" source="89" target="94">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" value="utill/asynchandler" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-1748.5" y="-977" width="111" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="&lt;div style=&quot;color: rgb(171, 178, 191); background-color: rgb(40, 44, 52); font-family: &amp;quot;JetBrains Mono&amp;quot;, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-weight: normal; font-size: 15px; line-height: 20px;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #7f848e;&quot;&gt;// using promise&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #d55fde;&quot;&gt;const&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #61afef;&quot;&gt;asyncHandler&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #2bbac5;&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt; (&lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;fun&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;) &lt;/span&gt;&lt;span style=&quot;color: #d55fde;&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt; {&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;&amp;nbsp; &amp;nbsp; (&lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;req&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;res&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;next&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;) &lt;/span&gt;&lt;span style=&quot;color: #d55fde;&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt; {&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;/span&gt;&lt;span style=&quot;color: #e5c07b;&quot;&gt;Promise&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #61afef;&quot;&gt;resolve&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #61afef;&quot;&gt;fun&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;req&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;res&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;, &lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;next&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;)).&lt;/span&gt;&lt;span style=&quot;color: #61afef;&quot;&gt;catch&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;((&lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;err&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;) &lt;/span&gt;&lt;span style=&quot;color: #d55fde;&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #61afef;&quot;&gt;next&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;err&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;));&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;&amp;nbsp; &amp;nbsp; };&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;};&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="-2135" y="-867" width="435" height="163" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="&lt;div style=&quot;color: rgb(171, 178, 191); background-color: rgb(40, 44, 52); font-family: &amp;quot;JetBrains Mono&amp;quot;, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-size: 15px; line-height: 20px;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #d55fde;&quot;&gt;const&lt;/span&gt; &lt;span style=&quot;color: #61afef;&quot;&gt;asyncHandler1&lt;/span&gt; &lt;span style=&quot;color: #2bbac5;&quot;&gt;=&lt;/span&gt; (&lt;span style=&quot;color: #ef596f;&quot;&gt;fun&lt;/span&gt;) &lt;span style=&quot;color: #d55fde;&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&quot;color: #d55fde;&quot;&gt;async&lt;/span&gt; (&lt;span style=&quot;color: #ef596f;&quot;&gt;req&lt;/span&gt;, &lt;span style=&quot;color: #ef596f;&quot;&gt;res&lt;/span&gt;, &lt;span style=&quot;color: #ef596f;&quot;&gt;next&lt;/span&gt;) &lt;span style=&quot;color: #d55fde;&quot;&gt;=&amp;gt;&lt;/span&gt; {&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &lt;span style=&quot;color: #d55fde;&quot;&gt;try&lt;/span&gt; {&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;span style=&quot;color: #d55fde;&quot;&gt;await&lt;/span&gt; &lt;span style=&quot;color: #61afef;&quot;&gt;fun&lt;/span&gt;(&lt;span style=&quot;color: #ef596f;&quot;&gt;req&lt;/span&gt;, &lt;span style=&quot;color: #ef596f;&quot;&gt;res&lt;/span&gt;, &lt;span style=&quot;color: #ef596f;&quot;&gt;next&lt;/span&gt;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; } &lt;span style=&quot;color: #d55fde;&quot;&gt;catch&lt;/span&gt; (&lt;span style=&quot;color: #ef596f;&quot;&gt;error&lt;/span&gt;) {&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;span style=&quot;color: #ef596f;&quot;&gt;res&lt;/span&gt;.&lt;span style=&quot;color: #61afef;&quot;&gt;status&lt;/span&gt;(&lt;span style=&quot;color: #ef596f;&quot;&gt;error&lt;/span&gt;.&lt;span style=&quot;color: #ef596f;&quot;&gt;code&lt;/span&gt; &lt;span style=&quot;color: #2bbac5;&quot;&gt;||&lt;/span&gt; &lt;span style=&quot;color: #d19a66;&quot;&gt;500&lt;/span&gt;).&lt;span style=&quot;color: #61afef;&quot;&gt;json&lt;/span&gt;({&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;span style=&quot;color: #ef596f;&quot;&gt;message&lt;/span&gt;: &lt;span style=&quot;color: #ef596f;&quot;&gt;error&lt;/span&gt;.&lt;span style=&quot;color: #ef596f;&quot;&gt;message&lt;/span&gt;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;span style=&quot;color: #ef596f;&quot;&gt;success&lt;/span&gt;: &lt;span style=&quot;color: #d19a66;&quot;&gt;false&lt;/span&gt;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; });&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; }&lt;/div&gt;&lt;div&gt;};&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-1630" y="-874" width="540" height="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="&lt;div style=&quot;color: rgb(171, 178, 191); background-color: rgb(40, 44, 52); font-family: &amp;quot;JetBrains Mono&amp;quot;, &amp;quot;Courier New&amp;quot;, monospace, Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-weight: normal; font-size: 15px; line-height: 20px;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: #ef596f;&quot;&gt;&quot;dev&quot;&lt;/span&gt;&lt;span style=&quot;color: #abb2bf;&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #89ca78;&quot;&gt;&quot;nodemon -r dotenv/config --experimental-json-modules src/index.js&quot;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-1544" y="-1493.5" width="274" height="63" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
