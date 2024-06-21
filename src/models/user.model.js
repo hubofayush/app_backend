@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 
-import bcryptjs from "bcryptjs";
+// import bcryptjs from "bcryptjs";
+
+import bcrypt from "bcryptjs/dist/bcrypt";
 
 const UserSchema = new Schema(
     {
@@ -54,8 +56,13 @@ UserSchema.pre("save", async function (next) {
     // checking the password is changed or not
     if (!this.isModified("password")) return next();
     // to hash password
-    this.password = await bcryptjs.hashSync(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10);
     next();
 });
+
+// to check password is correct
+UserSchema.methods.isPasswordCorrect = async function (password) {
+    return bcrypt.compare(password, this.password);
+};
 
 export const user = mongoose.model("User", UserSchema);
