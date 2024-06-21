@@ -3,10 +3,12 @@ import mongoose, { Schema } from "mongoose";
 // import bcryptjs from "bcryptjs";
 
 import bcrypt from "bcryptjs/dist/bcrypt";
+import jwt from "jsonwebtoken";
 
+// --- UserSchema --- //
 const UserSchema = new Schema(
     {
-        user: {
+        userName: {
             type: String,
             required: true,
             lowecase: true,
@@ -21,7 +23,7 @@ const UserSchema = new Schema(
             lowercase: true,
             trim: true,
         },
-        fullname: {
+        fullName: {
             type: String,
             required: true,
             trim: true,
@@ -31,7 +33,7 @@ const UserSchema = new Schema(
             type: String, // cloudnary
             required: true,
         },
-        coverimage: {
+        coverImage: {
             type: String, //cloudnary
         },
         warchHistory: [
@@ -50,19 +52,43 @@ const UserSchema = new Schema(
     },
     { timestamps: true },
 );
+// --- UserSchema --- //
 
-// hooks
+// --- hooks --- //
+
+// to hash password
 UserSchema.pre("save", async function (next) {
-    // checking the password is changed or not
-    if (!this.isModified("password")) return next();
-    // to hash password
-    this.password = await bcrypt.hash(this.password, 10);
+    if (!this.isModified("password")) return next(); // checking the password is changed or not
+    this.password = await bcrypt.hash(this.password, 10); // to hash password
+
     next();
 });
+// end of hash password
 
 // to check password is correct
 UserSchema.methods.isPasswordCorrect = async function (password) {
     return bcrypt.compare(password, this.password);
 };
+// end of check password is correct
+
+// --- Generating Tokens --- //
+// Create access token
+UserSchema.methods.generateAccessToken = function () {
+    jwt.sign(
+        {
+            _id: this.id,
+            email: this.email,
+            username: this.userName,
+            fullName: this.fullName,
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+        },
+    );
+};
+//end of Create access token
+
+// --- end of Generating Tokens --- //
 
 export const user = mongoose.model("User", UserSchema);
