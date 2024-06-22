@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 // import bcryptjs from "bcryptjs";
 
-import bcrypt from "bcryptjs/dist/bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // --- UserSchema --- //
