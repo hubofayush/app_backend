@@ -1,4 +1,4 @@
-import { multer } from "multer";
+import multer from "multer";
 // function middleware of multer
 const storage = multer.diskStorage({
     // using diskstorage to store at disk not memory
