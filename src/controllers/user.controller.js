@@ -6,6 +6,8 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 // importing cloudinary upload function
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+//importing api responce
+import { ApiResponce } from "../utils/ApiResponce.js";
 
 const registerUser = asyncHandler(async (req, res) => {
     // res.status(200).json({
@@ -76,13 +78,20 @@ const registerUser = asyncHandler(async (req, res) => {
     // end of entry on db //
 
     // chekcing user creatd or not //
-    const checkUser = await User.findById(user._id).select(
+    const createdUser = await User.findById(user._id).select(
         "-password -refreshToken", // we dont want this field
     );
-    if (!checkUser) {
+    if (!createdUser) {
         throw new ApiError(500, "something went wrong while registering user");
     }
     // end of chekcing user creatd or not //
+
+    // sending responce //
+    return res
+        .status(201)
+        .json(new ApiResponce(200, createdUser, "User Registered sucessfully"));
+    // end of sending responce //
+
     // end of actual code //
 });
 
