@@ -5,8 +5,7 @@
     "description": "this is a complete backend of a social media app",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon src/index.js"
+        "dev": "ndoe src/index.js"
     },
     "keywords": [
         "backend",
