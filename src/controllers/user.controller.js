@@ -149,7 +149,7 @@ const loginUser = asyncHandler(async (req, res) => {
     // end of getting data from user //
 
     // validating username and password and email //
-    if (!username || !email || !password) {
+    if (!(username || email)) {
         throw new ApiError(400, "Required all credentials");
     }
     // end of validating username and password and email //
@@ -194,8 +194,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .coockie("accessToken", accessToken, options)
-        .coockie("refreshToken", refreshToken, options)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
         .json(
             new ApiResponce(
                 200,
