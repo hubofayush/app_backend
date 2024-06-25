@@ -29,16 +29,19 @@ const registerUser = asyncHandler(async (req, res) => {
     const { fullName, email, username, password } = req.body; // getting userdetails from frontend
 
     // validation
-    if (
-        [fullName, email, password, username].some(
-            (field) => field?.trim() === "",
-        )
-    ) {
-        throw new ApiError(400, "All feilds are required");
+    // if (
+    //     [fullName, email, password, username].some(
+    //         (field) => field?.trim() === "",
+    //     )
+    // ) {
+    //     throw new ApiError(400, "All feilds are required");
+    // }
+    if (!fullName || !email || !username || !password) {
+        throw new ApiError(400, "all feilds are required");
     }
 
     // checking user already exist
-    const existedUser = User.findOne({
+    const existedUser = await User.findOne({
         // operators
         $or: [{ username }, { email }],
     });
@@ -49,17 +52,31 @@ const registerUser = asyncHandler(async (req, res) => {
     // end of checking user already exist
 
     // checking images //
-    const avatarLocalPath = req.files?.avatar[0].path; // same name as in multer
+
+    const avatarImage = req.files?.avatar[0]?.path;
+
+    const avatarLocalPath = avatarImage; // same name as in multer
+    console.log(typeof avatarLocalPath);
     if (!avatarLocalPath) {
         throw new ApiError(400, "Avatar file is required");
     }
 
-    const coverImageLocalPath = req.files?.coverImage[0].path;
+    // let coverImagetemp = req.files?.coverImage[0]?.path;
+    // const coverImageLocalPath = coverImagetemp;
 
+    let coverImageLocalPath;
+    if (
+        req.files &&
+        Array.isArray(req.files.coverImage) &&
+        req.files.coverImage.length > 0
+    ) {
+        coverImageLocalPath = req.files.coverImage[0].path;
+    }
     // end of checking images //
 
     // uploading avatar and coverimage on cloudinary //
     const avatar = await uploadOnCloudinary(avatarLocalPath);
+    console.log(avatar);
     if (!avatar) {
         throw new ApiError(400, "Avatar file is required");
     }
