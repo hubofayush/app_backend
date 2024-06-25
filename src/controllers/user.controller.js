@@ -210,4 +210,38 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 // end of login user controller //
 
-export { registerUser, loginUser };
+// log out user //
+const logoutUser = asyncHandler(async (req, res) => {
+    // finding user by middleware //
+    await User.findByIdAndUpdate(
+        req.user._id, // getting id from middleware
+        {
+            // using oprator
+            $set: {
+                refreshToken: undefined, // removing refreshToken
+            },
+        },
+        {
+            new: true, // getting new updated user
+        },
+    );
+    // end of finding user by middleware //
+
+    // options for cookie //
+    const options = {
+        httpOnly: true,
+        secure: true,
+    };
+    // end of options for cookie //
+
+    // sending responce //
+    return res
+        .status(200)
+        .clearCookie("accessToken", options) // clear cookie method //
+        .clearCookie("refreshToken", options)
+        .json(new ApiResponce(200, {}, "User Logged Out"));
+    // end of sending responce //
+});
+// end of log out user //
+
+export { registerUser, loginUser, logoutUser };
