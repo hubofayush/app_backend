@@ -52,11 +52,10 @@ const registerUser = asyncHandler(async (req, res) => {
     // end of checking user already exist
 
     // checking images //
-
+    // console.log(req.files);
     const avatarImage = req.files?.avatar[0]?.path;
 
     const avatarLocalPath = avatarImage; // same name as in multer
-    console.log(typeof avatarLocalPath);
     if (!avatarLocalPath) {
         throw new ApiError(400, "Avatar file is required");
     }
@@ -66,17 +65,16 @@ const registerUser = asyncHandler(async (req, res) => {
 
     let coverImageLocalPath;
     if (
-        req.files &&
-        Array.isArray(req.files.coverImage) &&
-        req.files.coverImage.length > 0
+        req.files && // checking is req.files availabel
+        Array.isArray(req.files.coverImage) && // chekcing coverImage is array or not
+        req.files.coverImage.length > 0 // checking its lenght is greater than zero
     ) {
-        coverImageLocalPath = req.files.coverImage[0].path;
+        coverImageLocalPath = req.files.coverImage[0].path; // assign the path
     }
     // end of checking images //
 
     // uploading avatar and coverimage on cloudinary //
     const avatar = await uploadOnCloudinary(avatarLocalPath);
-    console.log(avatar);
     if (!avatar) {
         throw new ApiError(400, "Avatar file is required");
     }
