@@ -2,13 +2,37 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 // importing api error
 import { ApiError } from "../utils/ApiError.js";
-// importing user mode
+// importing user model
 import { User } from "../models/user.model.js";
 // importing cloudinary upload function
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 //importing api responce
 import { ApiResponce } from "../utils/ApiResponce.js";
 
+// method for generate access and refresh token //
+const generateAccessAndRefreshToken = async (userId) => {
+    try {
+        const user = await User.findById(userId); // 1. find user by id
+
+        // generating access token and refresh token
+        const accessToken = await user.generateAccessToken();
+        const refreshToken = await user.generateRefreshToken();
+
+        // updating refreshToken in database
+        user.refreshToken = refreshToken;
+        await user.save({ validateBeforeSave: false }); // this is because we dont want to validate the password while saving refreshToken
+
+        return { accessToken, refreshToken }; // returning accessToken and
+    } catch (error) {
+        throw new ApiError(
+            500,
+            "something went wrong while genetating access and refresh token",
+        );
+    }
+};
+// end of method for generate access and refresh token //
+
+// Register User controller //
 const registerUser = asyncHandler(async (req, res) => {
     // res.status(200).json({
     //     message: "Ayush amberkar",
@@ -109,5 +133,81 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // end of actual code //
 });
+//end of Register User controller //
 
-export { registerUser };
+// login user controller //
+const loginUser = asyncHandler(async (req, res) => {
+    // 1. getting data from req
+    // 2. validating username or email
+    // 3. finding user
+    // 4. password check
+    // 5. access and refresh token function
+    // 6. send coockie
+
+    // getting data from user //
+    const { username, email, password } = req.body;
+    // end of getting data from user //
+
+    // validating username and password and email //
+    if (!username || !email || !password) {
+        throw new ApiError(400, "Required all credentials");
+    }
+    // end of validating username and password and email //
+
+    // findig user //
+    const user = await User.findOne({
+        $or: [{ username }, { email }], // using operators for getting user
+    });
+    // end of findig user //
+
+    // checking user is available or not //
+    if (!user) {
+        throw new ApiError(404, "user not found or invalid credentials");
+    }
+    // end of checking user is available or not //
+
+    // validating password //
+    const isPasswordValid = await user.isPasswordCorrect(password); //using self made function in user model of mongoose
+    if (!isPasswordValid) {
+        throw new ApiError(401, "Invalid user credentials wrong password");
+    }
+    // end of validating password //
+
+    // generating accessToken and refreshToken
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+        user._id,
+    );
+    // end of generating accessToken and refreshToken
+
+    // fetching user again for updated version//
+    const loggedInUser = await User.findById(user._id).select(
+        "-password -refreshToken",
+    );
+    // end of fetching user again //
+
+    // making options for cookie
+    const options = {
+        httpOnly: true,
+        secure: true,
+    };
+    //end of  making options for cookie
+
+    return res
+        .status(200)
+        .coockie("accessToken", accessToken, options)
+        .coockie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponce(
+                200,
+                {
+                    user: loggedInUser,
+                    accessToken,
+                    refreshToken,
+                },
+                "user loged in sucessfully",
+            ),
+        );
+});
+// end of login user controller //
+
+export { registerUser, loginUser };
