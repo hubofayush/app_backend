@@ -315,4 +315,49 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     }
 });
 // end of refresh accesstoken //
-export { registerUser, loginUser, logoutUser, refreshAccessToken };
+
+// changeCurrentPassword //
+const changeCurrentPassword = asyncHandler(async (req, res) => {
+    // getting password //
+    const { oldPassword, newPassword } = req.body;
+    if (!(oldPassword || newPassword)) {
+        throw new ApiError(400, "old and new password cant empty");
+    }
+    // end of getting password //
+
+    // getting user //
+    const user = await User.findById(req._id);
+    // end of getting user //
+
+    // validating password //
+    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword); // using method of mongoose model
+    // end of validating password //
+
+    // validating password //
+    if (!isPasswordCorrect) {
+        throw new ApiError(400, "Incorrect old password");
+    }
+    // validating password //
+
+    // savig new password on db //
+    user.password = newPassword;
+    await user.save({ validateBeforeSave: false }); // validation off //
+    // end of savig new password on db //
+
+    // sending responce //
+    return res
+        .status(200)
+        .json(new ApiResponce(200, {}, "password changed successfully"));
+    // end of sending responce //
+});
+// end of changeCurrentPassword //
+
+// get current user //
+// end of get current user //
+export {
+    registerUser,
+    loginUser,
+    logoutUser,
+    refreshAccessToken,
+    changeCurrentPassword,
+};
