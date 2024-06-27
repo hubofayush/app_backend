@@ -415,6 +415,54 @@ const updateAvatar = asyncHandler(async (req, res) => {
 });
 // end of change avatar //
 
+// update coverImage //
+const updateCoverImage = asyncHandler(async (req, res) => {
+    // get file path from multer //
+    const coverImageLocalPath = req.file?.path;
+    if (!coverImageLocalPath) {
+        throw new ApiError(400, "cover image path required");
+    }
+    // end of get file path from multer //
+
+    // upload on cloudinary //
+    const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+    if (!coverImage) {
+        throw new ApiError(400, "Error on cloudinary upload");
+    }
+    // upload on cloudinary //
+
+    // delete old cover image //
+    const deleteCoverImage = await deleteImageOnCloudinary(
+        req.user?.coverImage,
+    );
+    if (!deleteCoverImage) {
+        throw new ApiError(400, "Cover iMage not deleted from cloudinary");
+    }
+    // delete old cover image //
+
+    // finding user //
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                coverImage: coverImage.url,
+            },
+        },
+        {
+            new: true,
+        },
+    );
+    // end of finding user //
+    if (!user) {
+        throw new ApiError(400, "Image not Uploaded on db");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponce(200, "Cover image changed successfully"));
+});
+// end of update coverImage //
+
 // end of get current user //
 export {
     registerUser,
@@ -424,4 +472,5 @@ export {
     changeCurrentPassword,
     getCurrentUser,
     updateAvatar,
+    updateCoverImage,
 };

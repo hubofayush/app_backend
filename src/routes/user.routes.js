@@ -5,6 +5,7 @@ import {
     refreshAccessToken,
     registerUser,
     updateAvatar,
+    updateCoverImage,
 } from "../controllers/user.controller.js";
 const router = Router();
 
@@ -42,7 +43,15 @@ router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/refresh-token").post(refreshAccessToken);
 // end of secured routes //
 
+// update aatar image //
 router
     .route("/update-avatar")
     .post(verifyJWT, upload.single("avatar"), updateAvatar);
+// end of update aatar image //
+
+// update coverImage //
+router
+    .route("/update-coverImage")
+    .post(verifyJWT, upload.single("coverImage"), updateCoverImage);
+// end of update coverImage //
 export default router;
