@@ -5,7 +5,10 @@ import { ApiError } from "../utils/ApiError.js";
 // importing user model
 import { User } from "../models/user.model.js";
 // importing cloudinary upload function
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import {
+    deleteImageOnCloudinary,
+    uploadOnCloudinary,
+} from "../utils/cloudinary.js";
 //importing api responce
 import { ApiResponce } from "../utils/ApiResponce.js";
 // importing jwr
@@ -362,6 +365,56 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 // get current user //
 
+// change avatar //
+const updateAvatar = asyncHandler(async (req, res) => {
+    // getting user file //
+    const updatedAvatarPath = req.file?.path;
+    if (!updatedAvatarPath) {
+        throw new ApiError(400, "avatar path is required");
+    }
+    //end of getting user file //
+
+    // upload on cloudinary //
+    const avatar = await uploadOnCloudinary(updatedAvatarPath);
+    if (!avatar) {
+        throw new ApiError(400, "Failed to upload on cloudinary");
+    }
+    // end of upload on cloudinary //
+
+    // delete image //
+    const deleteImage = await deleteImageOnCloudinary(req.user?.avatar);
+    if (!deleteImage) {
+        throw new ApiError(400, "image not deleted on cloudinary");
+    }
+    // delete image //
+
+    // update on db //
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                avatar: avatar.url,
+            },
+        },
+        {
+            new: true,
+        },
+    ).select("-password");
+
+    if (!user) {
+        throw new ApiError(400, "not update on db");
+    }
+
+    // responce //
+    return res
+        .status(200)
+        .json(new ApiResponce(200, "avatar image changed successfully"));
+    // end of responce //
+
+    // end of update on db //
+});
+// end of change avatar //
+
 // end of get current user //
 export {
     registerUser,
@@ -370,4 +423,5 @@ export {
     refreshAccessToken,
     changeCurrentPassword,
     getCurrentUser,
+    updateAvatar,
 };

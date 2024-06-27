@@ -4,6 +4,7 @@ import {
     logoutUser,
     refreshAccessToken,
     registerUser,
+    updateAvatar,
 } from "../controllers/user.controller.js";
 const router = Router();
 
@@ -41,4 +42,7 @@ router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/refresh-token").post(refreshAccessToken);
 // end of secured routes //
 
+router
+    .route("/update-avatar")
+    .post(verifyJWT, upload.single("avatar"), updateAvatar);
 export default router;
