@@ -329,11 +329,11 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
     // end of getting password //
 
     // getting user //
-    const user = await User.findById(req._id);
+    const user = await User.findById(req.user?._id);
     // end of getting user //
 
     // validating password //
-    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword); // using method of mongoose model
+    const isPasswordCorrect = await user?.isPasswordCorrect(oldPassword); // using method of mongoose model
     // end of validating password //
 
     // validating password //
