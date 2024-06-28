@@ -59,7 +59,7 @@ router
     .route("/update-coverImage")
     .patch(verifyJWT, upload.single("coverImage"), updateCoverImage);
 // end of update coverImage //
-router.route("/change-password").patch(verifyJWT, changeCurrentPassword);
+router.route("/change-password").post(verifyJWT, changeCurrentPassword);
 
 router.route("/current-user").post(verifyJWT, getCurrentUser);
 
