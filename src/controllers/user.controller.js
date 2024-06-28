@@ -553,6 +553,72 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
 });
 // end of aggregation pipeline for user subscription //
 
+// get watch history //
+const getWatchHistory = asyncHandler(async (req, res) => {
+    // aggregation //
+    const user = await User.aggregate([
+        {
+            // matching user id //
+            $match: {
+                _id: new mongoose.Types.ObjectID(req.user?._id), // getting user by mondodb actudal id
+            },
+        },
+        // end of matching user //
+
+        // lookup for watchHistory //
+        {
+            $lookup: {
+                from: "videos",
+                localField: "watchHistory",
+                foreignField: "_id",
+                as: "watchHistory",
+
+                // sub pipeline for owner //
+                pipeline: [
+                    {
+                        $lookup: {
+                            from: "Users",
+                            localField: "owner",
+                            foreignField: "_id",
+                            as: "owner",
+                            // subpipeline for selected feilds //
+                            pipeline: [
+                                {
+                                    $project: {
+                                        fullName: 1,
+                                        usernmae: 1,
+                                        avatar: 1,
+                                    },
+                                },
+                            ],
+                            // end of subpipeline for selected feilds //
+                        },
+                    },
+                ],
+                // end of sub pipeline for owner //
+            },
+        },
+        // end of lookup for watchHistory //
+    ]);
+    // end of aggregation //
+
+    if (!user) {
+        throw new ApiError(404, "cant get watch history");
+    }
+
+    return (
+        res.status(200),
+        json(
+            new ApiResponce(
+                200,
+                user[0].watchHistory,
+                "WatchHistory fethced successfully",
+            ),
+        )
+    );
+});
+// end of get watch history //
+
 // end of get current user //
 export {
     registerUser,
@@ -564,4 +630,5 @@ export {
     updateAvatar,
     updateCoverImage,
     getUserChannelProfile,
+    getWatchHistory,
 };
