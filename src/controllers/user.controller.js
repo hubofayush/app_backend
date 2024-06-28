@@ -463,6 +463,96 @@ const updateCoverImage = asyncHandler(async (req, res) => {
 });
 // end of update coverImage //
 
+// aggregation pipeline for user subscription //
+const getUserChannelProfile = asyncHandler(async (req, res) => {
+    // getting username from url link //
+    const username = req.params;
+    if (!username) {
+        throw new ApiError(400, "username required");
+    }
+    // end of getting username from url link //
+
+    // aggregate //
+    const channel = await User.aggregate([
+        // 1. finding  user by username //
+        {
+            // find uername
+            $match: {
+                username: username,
+            },
+        },
+        {
+            // finding user or channel subscribers
+            $lookup: {
+                from: "Subscription",
+                localField: "_id",
+                foreignField: "channel",
+                as: "subscribers",
+            },
+        },
+        {
+            // finding user subscribed to channels
+            $lookup: {
+                from: "Subscription",
+                localField: "_id",
+                foreignField: "subscriber",
+                as: "subscribedTo",
+            },
+        },
+        {
+            // adding feilds
+            $addFields: {
+                // to count subscribers //
+                subscribersCount: {
+                    $size: "$subscribers",
+                },
+                // end of to count subscribers //
+
+                // to count subscribed to //
+                channelsubscribedToCount: {
+                    $size: "$subscribedTo",
+                },
+                // end of to count subscribed to //
+
+                // to find the uer is sucscribed or not to a channel //
+                isSubscribed: {
+                    $cond: {
+                        if: {
+                            $in: [req.user?._id, "$subscribers.subscriber"],
+                        },
+                        then: true,
+                        else: false,
+                    },
+                },
+            },
+        },
+        {
+            // projecting selected fields
+            $project: {
+                fullName: 1,
+                username: 1,
+                avatar,
+                coverImage,
+                subscribersCount: 1,
+                channelsubscribedToCount: 1,
+                isSubscribed: 1,
+                email: 1,
+            },
+        },
+    ]);
+    // end of aggregate //
+
+    if (!channel) {
+        throw new ApiError(404, "channel does not exists");
+    }
+
+    return res.status(200).json(
+        new ApiResponce(200, channel[0]), // responce is in array so we sending first object of respose array//
+        "user Channel fetched successfully",
+    );
+});
+// end of aggregation pipeline for user subscription //
+
 // end of get current user //
 export {
     registerUser,
@@ -473,4 +563,5 @@ export {
     getCurrentUser,
     updateAvatar,
     updateCoverImage,
+    getUserChannelProfile,
 };
