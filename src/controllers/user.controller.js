@@ -15,6 +15,7 @@ import { ApiResponce } from "../utils/ApiResponce.js";
 import jwt from "jsonwebtoken";
 // importing constant options
 import { options } from "../constants.js";
+import mongoose from "mongoose";
 
 // method for generate access and refresh token //
 const generateAccessAndRefreshToken = async (userId) => {
@@ -271,7 +272,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
         );
         // end of verify token //
-        
+
         // find user //
         const user = await User.findById(decodedToken?._id);
         if (!user) {
@@ -560,7 +561,7 @@ const getWatchHistory = asyncHandler(async (req, res) => {
         {
             // matching user id //
             $match: {
-                _id: new mongoose.Types.ObjectID(req.user?._id), // getting user by mondodb actudal id
+                _id: new mongoose.Types.ObjectId(req.user?._id), // getting user by mondodb actudal id
             },
         },
         // end of matching user //
@@ -606,16 +607,15 @@ const getWatchHistory = asyncHandler(async (req, res) => {
         throw new ApiError(404, "cant get watch history");
     }
 
-    return (
-        res.status(200),
-        json(
+    return res
+        .status(200)
+        .json(
             new ApiResponce(
                 200,
                 user[0].watchHistory,
                 "WatchHistory fethced successfully",
             ),
-        )
-    );
+        );
 });
 // end of get watch history //
 
