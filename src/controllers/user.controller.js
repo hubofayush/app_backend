@@ -532,8 +532,8 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
             $project: {
                 fullName: 1,
                 username: 1,
-                avatar,
-                coverImage,
+                avatar: 1,
+                coverImage: 1,
                 subscribersCount: 1,
                 channelsubscribedToCount: 1,
                 isSubscribed: 1,
@@ -548,8 +548,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
     }
 
     return res.status(200).json(
-        new ApiResponce(200, channel[0]), // responce is in array so we sending first object of respose array//
-        "user Channel fetched successfully",
+        new ApiResponce(200, channel[0], "user Channel fetched successfully"), // responce is in array so we sending first object of respose array//
     );
 });
 // end of aggregation pipeline for user subscription //
