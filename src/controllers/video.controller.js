@@ -3,6 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponce } from "../utils/ApiResponce.js";
 import { Video } from "../models/video.model.js";
+import mongoose from "mongoose";
 // for publish a video //
 const publishAVideo = asyncHandler(async (req, res) => {
     // getting requiered fields //
@@ -64,4 +65,53 @@ const publishAVideo = asyncHandler(async (req, res) => {
 });
 // end of for publish a video //
 
-export { publishAVideo };
+// get video by id //
+const getVideoById = asyncHandler(async (req, res) => {
+    const { videoId } = req.params;
+    if (!videoId) {
+        throw new ApiError(404, "Video Id is required");
+    }
+
+    // finding video //
+    const video = await Video.aggregate([
+        {
+            $match: {
+                _id: videoId,
+            },
+        },
+        {
+            $lookup: {
+                from: "Users",
+                localField: "owner",
+                foreignField: "_id",
+                as: "owner",
+            },
+        },
+        {
+            $project: {
+                title: 1,
+                thumbnail: 1,
+                description: 1,
+                createdAt: 1,
+                owner: 1,
+            },
+        },
+    ]);
+    // const id = new mongoose.Types.ObjectId(id);
+    // if (id) {
+    //     console.log(id);
+    // }
+    // const video = await Video.findById(videoId);
+
+    if (!video) {
+        throw new ApiError(400, "invalid video id");
+    }
+    // end of finding video //
+
+    return res
+        .status(200)
+        .json(new ApiResponce(200, video[0], "Video fetched successfully"));
+});
+// get video by id //
+
+export { publishAVideo, getVideoById };
