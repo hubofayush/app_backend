@@ -268,12 +268,12 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
         // verify token //
         const decodedToken = jwt.verify(
             incomingRefreshTOken,
-            process.env.ACCESS_TOKEN_SECRET,
+            process.env.REFRESH_TOKEN_SECRET,
         );
         // end of verify token //
-
+        
         // find user //
-        const user = await User.findById(decodedToken._id);
+        const user = await User.findById(decodedToken?._id);
         if (!user) {
             throw new ApiError(
                 401,
@@ -306,7 +306,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
                         accessToken,
                         newRefreshToken,
                     },
-                    "Access token refrehed",
+                    "Access token refreshed",
                 ),
             );
         // end of sending responce //
