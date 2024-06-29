@@ -16,6 +16,10 @@ const VideoSchema = new Schema(
             type: String,
             required: true,
         },
+        thumbnail: {
+            type: String,
+            required: true,
+        },
         owner: {
             type: Schema.Types.ObjectId,
             ref: "User",
@@ -37,6 +41,6 @@ const VideoSchema = new Schema(
 );
 
 // middleware plugin
-VideoSchema.plugin(mongooseAggregatePaginate)
+VideoSchema.plugin(mongooseAggregatePaginate);
 
 export const Video = mongoose.model("Video", VideoSchema);
