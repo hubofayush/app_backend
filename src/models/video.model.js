@@ -36,6 +36,10 @@ const VideoSchema = new Schema(
             type: Boolean,
             default: true,
         },
+        publicId: {
+            type: String,
+            required: true,
+        },
     },
     { timestamps: true },
 );
