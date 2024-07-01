@@ -472,20 +472,19 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         throw new ApiError(400, "username required");
     }
     // end of getting username from url link //
+    console.log(username.username);
 
     // aggregate //
     const channel = await User.aggregate([
         // 1. finding  user by username //
         {
-            // find uername
             $match: {
-                username: username,
+                username: username.username,
             },
         },
         {
-            // finding user or channel subscribers
             $lookup: {
-                from: "Subscriptions",
+                from: "subscriptions",
                 localField: "_id",
                 foreignField: "channel",
                 as: "subscribers",
@@ -494,16 +493,14 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         {
             // finding user subscribed to channels
             $lookup: {
-                from: "Subscriptions",
+                from: "subscriptions",
                 localField: "_id",
                 foreignField: "subscriber",
                 as: "subscribedTo",
             },
         },
         {
-            // adding feilds
             $addFields: {
-                // to count subscribers //
                 subscribersCount: {
                     $size: "$subscribers",
                 },
@@ -513,13 +510,10 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
                 channelsubscribedToCount: {
                     $size: "$subscribedTo",
                 },
-                // end of to count subscribed to //
-
-                // to find the uer is sucscribed or not to a channel //
                 isSubscribed: {
                     $cond: {
                         if: {
-                            $in: [req.user?._id, "$subscribers.subscriber"],
+                            $in: [req.user?._id, "$subscribers.subscribers"],
                         },
                         then: true,
                         else: false,
@@ -541,8 +535,16 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
             },
         },
     ]);
-    // end of aggregate //
 
+    // const channel = await User.aggregate([
+    //     {
+    //         $match: {
+    //             username: "maithili",
+    //         },
+    //     },
+    // ]);
+    // end of aggregate //
+    console.log(channel[0]);
     if (!channel) {
         throw new ApiError(404, "channel does not exists");
     }
