@@ -571,7 +571,7 @@ const getWatchHistory = asyncHandler(async (req, res) => {
         {
             $lookup: {
                 from: "videos",
-                localField: "watchHistory",
+                localField: "warchHistory",
                 foreignField: "_id",
                 as: "watchHistory",
 
@@ -603,7 +603,7 @@ const getWatchHistory = asyncHandler(async (req, res) => {
         // end of lookup for watchHistory //
     ]);
     // end of aggregation //
-
+    console.log(user);
     if (!user) {
         throw new ApiError(404, "cant get watch history");
     }
