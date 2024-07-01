@@ -75,32 +75,49 @@ const getVideoById = asyncHandler(async (req, res) => {
     // finding video //
     const video = await Video.aggregate([
         {
-            $match: {
-                _id: videoId,
-            },
-        },
-        {
             $lookup: {
-                from: "Users",
+                from: "users",
                 localField: "owner",
                 foreignField: "_id",
                 as: "owner",
+                pipeline: [
+                    {
+                        // finding user or channel subscribers
+                        $lookup: {
+                            from: "subscriptions",
+                            localField: "_id",
+                            foreignField: "channel",
+                            as: "subscribers",
+                        },
+                    },
+                    {
+                        // adding feilds
+                        $addFields: {
+                            // to count subscribers //
+                            subscribersCount: {
+                                $size: "$subscribers",
+                            },
+                        },
+                    },
+                    {
+                        $project: {
+                            username: 1,
+                            fullName: 1,
+                            avatar: 1,
+                            subscribersCount: 1,
+                        },
+                    },
+                ],
             },
         },
         {
-            $project: {
-                title: 1,
-                thumbnail: 1,
-                description: 1,
-                createdAt: 1,
-                owner: 1,
+            $addFields: {
+                owner: {
+                    $first: "$owner",
+                },
             },
         },
     ]);
-    // const id = new mongoose.Types.ObjectId(id);
-    // if (id) {
-    //     console.log(id);
-    // }
     // const video = await Video.findById(videoId);
 
     if (!video) {
@@ -110,7 +127,7 @@ const getVideoById = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(new ApiResponce(200, video[0], "Video fetched successfully"));
+        .json(new ApiResponce(200, video, "Video fetched successfully"));
 });
 // get video by id //
 
