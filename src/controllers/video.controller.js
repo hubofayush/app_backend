@@ -75,6 +75,12 @@ const getVideoById = asyncHandler(async (req, res) => {
     // finding video //
     const video = await Video.aggregate([
         {
+            $match: {
+                _id: new mongoose.Types.ObjectId(videoId),
+            },
+        },
+
+        {
             $lookup: {
                 from: "users",
                 localField: "owner",
@@ -119,6 +125,7 @@ const getVideoById = asyncHandler(async (req, res) => {
         },
     ]);
     // const video = await Video.findById(videoId);
+    console.log(video);
 
     if (!video) {
         throw new ApiError(400, "invalid video id");
@@ -127,7 +134,7 @@ const getVideoById = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(new ApiResponce(200, video, "Video fetched successfully"));
+        .json(new ApiResponce(200, video[0], "Video fetched successfully"));
 });
 // get video by id //
 
