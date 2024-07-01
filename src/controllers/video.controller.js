@@ -4,6 +4,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponce } from "../utils/ApiResponce.js";
 import { Video } from "../models/video.model.js";
 import mongoose from "mongoose";
+
 // for publish a video //
 const publishAVideo = asyncHandler(async (req, res) => {
     // getting requiered fields //
@@ -125,7 +126,6 @@ const getVideoById = asyncHandler(async (req, res) => {
         },
     ]);
     // const video = await Video.findById(videoId);
-    console.log(video);
 
     if (!video) {
         throw new ApiError(400, "invalid video id");
@@ -138,4 +138,48 @@ const getVideoById = asyncHandler(async (req, res) => {
 });
 // get video by id //
 
-export { publishAVideo, getVideoById };
+// get all videos //
+const getAllVideos = asyncHandler(async (req, res) => {
+    const video = await Video.aggregate([
+        {
+            $match: {
+                isPublished: true,
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "owner",
+                foreignField: "_id",
+                as: "owner",
+                pipeline: [
+                    {
+                        $project: {
+                            username: 1,
+                            fullname: 1,
+                            avatar: 1,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $addFields: {
+                owner: {
+                    $first: "$owner",
+                },
+            },
+        },
+    ]);
+    // console.log(video);
+    if (!video) {
+        throw new ApiError(400, "cannot get all vieos");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponce(200, video, "videos fetched successfully"));
+});
+// end of get all videos //
+
+export { publishAVideo, getVideoById, getAllVideos };
