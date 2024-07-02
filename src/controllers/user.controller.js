@@ -467,19 +467,19 @@ const updateCoverImage = asyncHandler(async (req, res) => {
 // aggregation pipeline for user subscription //
 const getUserChannelProfile = asyncHandler(async (req, res) => {
     // getting username from url link //
-    const username = req.params;
+    const { username } = req.params;
     if (!username) {
         throw new ApiError(400, "username required");
     }
     // end of getting username from url link //
-    console.log(username.username);
+    console.log(username);
 
     // aggregate //
     const channel = await User.aggregate([
         // 1. finding  user by username //
         {
             $match: {
-                username: username.username,
+                username: username,
             },
         },
         {
@@ -603,7 +603,7 @@ const getWatchHistory = asyncHandler(async (req, res) => {
         // end of lookup for watchHistory //
     ]);
     // end of aggregation //
-    console.log(user);
+
     if (!user) {
         throw new ApiError(404, "cant get watch history");
     }
