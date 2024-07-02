@@ -6,7 +6,7 @@ import {
 } from "../utils/cloudinary.js";
 import { ApiResponce } from "../utils/ApiResponce.js";
 import { Video } from "../models/video.model.js";
-import mongoose from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 
 // for publish a video //
 const publishAVideo = asyncHandler(async (req, res) => {
@@ -76,6 +76,10 @@ const getVideoById = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Video Id is required");
     }
 
+    if (isValidObjectId(videoId) == false) {
+        throw new ApiError(404, "invalid objetc id");
+    }
+
     // finding video //
     const video = await Video.aggregate([
         {
@@ -130,7 +134,7 @@ const getVideoById = asyncHandler(async (req, res) => {
     ]);
     // const video = await Video.findById(videoId);
 
-    if (!video == []) {
+    if (video.length === 0) {
         throw new ApiError(400, "invalid video id");
     }
     // end of finding video //
@@ -143,6 +147,13 @@ const getVideoById = asyncHandler(async (req, res) => {
 
 // get all videos //
 const getAllVideos = asyncHandler(async (req, res) => {
+    const { page = 1, limit = 2, sortBy, sortType } = req.query;
+
+    const parsedLimit = parseInt(limit);
+    const pageSkip = (page - 1) * parsedLimit;
+    const sortStage = {};
+    sortStage[sortBy] = sortType === "asc" ? 1 : -1;
+
     const video = await Video.aggregate([
         {
             $match: {
@@ -172,6 +183,15 @@ const getAllVideos = asyncHandler(async (req, res) => {
                     $first: "$owner",
                 },
             },
+        },
+        {
+            $sort: sortStage,
+        },
+        {
+            $skip: pageSkip,
+        },
+        {
+            $limit: parsedLimit,
         },
     ]);
     // console.log(video);
@@ -284,4 +304,61 @@ const deleteVideo = asyncHandler(async (req, res) => {
 
 // delete video //
 
-export { publishAVideo, getVideoById, getAllVideos, updateVideo, deleteVideo };
+// toggel pubish status //
+const togglePublishStatus = asyncHandler(async (req, res) => {
+    const { videoId } = req.params;
+
+    if (!videoId) {
+        throw new ApiError(404, "videoId needed");
+    }
+
+    const video = await Video.findById(videoId);
+    if (!video) {
+        throw new ApiError(404, "invalid video id");
+    }
+
+    if (!video.owner.equals(req.user?._id)) {
+        throw new ApiError(405, "Video id and user id not matched");
+    }
+
+    const updatedVideo = await Video.findByIdAndUpdate(
+        videoId,
+        {
+            $set: {
+                isPublished: !video.isPublished,
+            },
+        },
+        {
+            new: true,
+        },
+    );
+
+    if (!updatedVideo) {
+        throw new ApiError(400, "cant update isPublish status on db");
+    }
+    console.log(updatedVideo);
+    return res
+        .status(200)
+        .json(
+            new ApiResponce(
+                200,
+                updatedVideo,
+                "video pusblish status updated successfullly",
+            ),
+        );
+});
+// end of toggel pubish status //
+
+const getQuery = async (req, res) => {
+    res.json(req.query);
+};
+
+export {
+    publishAVideo,
+    getVideoById,
+    getAllVideos,
+    updateVideo,
+    deleteVideo,
+    togglePublishStatus,
+    getQuery,
+};

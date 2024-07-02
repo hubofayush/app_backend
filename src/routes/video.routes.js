@@ -3,8 +3,10 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 import {
     deleteVideo,
     getAllVideos,
+    getQuery,
     getVideoById,
     publishAVideo,
+    togglePublishStatus,
     updateVideo,
 } from "../controllers/video.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -45,4 +47,10 @@ router
 // delete video on cloudinary //
 router.route("/delete-video/:videoId").delete(deleteVideo);
 // end of delete video on cloudinary //
+
+// toggle publish status //
+router.route("/toggle-status/:videoId").patch(togglePublishStatus);
+// end of toggle publish status //
+
+router.route("/query").get(getQuery);
 export default router;
