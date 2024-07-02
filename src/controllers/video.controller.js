@@ -130,7 +130,7 @@ const getVideoById = asyncHandler(async (req, res) => {
     ]);
     // const video = await Video.findById(videoId);
 
-    if (!video) {
+    if (!video == []) {
         throw new ApiError(400, "invalid video id");
     }
     // end of finding video //
@@ -243,4 +243,45 @@ const updateVideo = asyncHandler(async (req, res) => {
 });
 // end of update video details //
 
-export { publishAVideo, getVideoById, getAllVideos, updateVideo };
+// delete video //
+const deleteVideo = asyncHandler(async (req, res) => {
+    const { videoId } = req.params;
+
+    if (!videoId) {
+        throw new ApiError(404, "Video id required");
+    }
+
+    const video = await Video.findById(videoId);
+
+    if (!video) {
+        throw new ApiError(404, "invalid video id");
+    }
+
+    if (!video.owner.equals(req.user?._id)) {
+        throw new ApiError(404, "user and owner not mathced");
+    }
+
+    // deleting video and image on cloudinary //
+    const deleteVideoFile = await deleteImageOnCloudinary(video.videoFile);
+    if (!deleteVideoFile) {
+        throw new ApiError(404, "video not deleted on cloudinary");
+    }
+    const deleteThumbnailFile = await deleteImageOnCloudinary(video.thumbnail);
+    if (!deleteThumbnailFile) {
+        throw new ApiError(404, "thumbnail not deleted on cloudinary");
+    }
+    // end of deleting video and image on cloudinary //
+
+    const deletedVideo = await Video.findByIdAndDelete(videoId);
+    if (!deletedVideo) {
+        throw new ApiError(400, "video not deled on db");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponce(200, deletedVideo, "video deleted successfully"));
+});
+
+// delete video //
+
+export { publishAVideo, getVideoById, getAllVideos, updateVideo, deleteVideo };

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import {
+    deleteVideo,
     getAllVideos,
     getVideoById,
     publishAVideo,
@@ -40,4 +41,8 @@ router
     .route("/update-video/:videoId")
     .patch(upload.single("thumbnail"), updateVideo);
 // end of update video details //
+
+// delete video on cloudinary //
+router.route("/delete-video/:videoId").delete(deleteVideo);
+// end of delete video on cloudinary //
 export default router;
