@@ -4,6 +4,7 @@ import {
     getAllVideos,
     getVideoById,
     publishAVideo,
+    updateVideo,
 } from "../controllers/video.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 const router = Router();
@@ -33,4 +34,10 @@ router.route("/v/:videoId").get(getVideoById);
 // get all videos //
 router.route("/").get(getAllVideos);
 // end of get all videos //
+
+// update video details //
+router
+    .route("/update-video/:videoId")
+    .patch(upload.single("thumbnail"), updateVideo);
+// end of update video details //
 export default router;

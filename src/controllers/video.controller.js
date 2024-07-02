@@ -1,6 +1,9 @@
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import {
+    deleteImageOnCloudinary,
+    uploadOnCloudinary,
+} from "../utils/cloudinary.js";
 import { ApiResponce } from "../utils/ApiResponce.js";
 import { Video } from "../models/video.model.js";
 import mongoose from "mongoose";
@@ -182,4 +185,62 @@ const getAllVideos = asyncHandler(async (req, res) => {
 });
 // end of get all videos //
 
-export { publishAVideo, getVideoById, getAllVideos };
+// update video details //
+const updateVideo = asyncHandler(async (req, res) => {
+    const { videoId } = req.params;
+    if (!videoId) {
+        throw new ApiError(404, "videoId cant be empty");
+    }
+
+    const video = await Video.findById(videoId);
+    if (!video) {
+        throw new ApiError(404, "cant find video with this id");
+    }
+
+    // let id = video.owner;
+    if (!video.owner.equals(req.user?._id)) {
+        throw new ApiError(405, "video owner and user not matched");
+    }
+
+    const { title, description } = req.body;
+    if (!(title || description)) {
+        throw new ApiError(404, "feild not empty");
+    }
+
+    const thumbnailPath = req.file?.path;
+    if (!thumbnailPath) {
+        thumbnailPath = video.thumbnail;
+    }
+
+    const thumbnail = await uploadOnCloudinary(thumbnailPath);
+    if (!thumbnail) {
+        throw new ApiError(400, "thumbnail not upload on cloudinary");
+    }
+
+    const deleteOldThumbnail = await deleteImageOnCloudinary(video.thumbnail);
+
+    const updateVideoDetails = await Video.findByIdAndUpdate(
+        videoId,
+        {
+            $set: {
+                title: title || video.title,
+                thumbnail: thumbnail.url,
+                description: description || video.description,
+            },
+        },
+        {
+            new: true,
+        },
+    );
+    if (!updateVideoDetails) {
+        throw new ApiError(400, "video details not updated at db");
+    }
+    return res
+        .status(200)
+        .json(
+            new ApiResponce(200, updateVideoDetails, "video details updated"),
+        );
+});
+// end of update video details //
+
+export { publishAVideo, getVideoById, getAllVideos, updateVideo };
