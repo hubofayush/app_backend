@@ -80,6 +80,19 @@ const getVideoById = asyncHandler(async (req, res) => {
         throw new ApiError(404, "invalid objetc id");
     }
 
+    const updateViews = await Video.findById(videoId);
+    if (!updateViews) {
+        throw new ApiError(404, "invalid id");
+    }
+
+    // console.log(req.user?._id, new mongoose.Types.ObjectId(videoId));
+
+    if (!req.user?._id.equals(updateViews.owner._id)) {
+        updateViews.views = updateViews.views + 1;
+        await updateViews.save({ validateBeforeSave: false });
+
+    }
+
     // finding video //
     const video = await Video.aggregate([
         {
@@ -87,7 +100,6 @@ const getVideoById = asyncHandler(async (req, res) => {
                 _id: new mongoose.Types.ObjectId(videoId),
             },
         },
-
         {
             $lookup: {
                 from: "users",
