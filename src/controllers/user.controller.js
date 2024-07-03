@@ -472,7 +472,6 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         throw new ApiError(400, "username required");
     }
     // end of getting username from url link //
-    console.log(username);
 
     // aggregate //
     const channel = await User.aggregate([
@@ -513,7 +512,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
                 isSubscribed: {
                     $cond: {
                         if: {
-                            $in: [req.user?._id, "$subscribers.subscribers"],
+                            $in: [req.user?._id, "$subscribers.subscriber"],
                         },
                         then: true,
                         else: false,
@@ -544,7 +543,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
     //     },
     // ]);
     // end of aggregate //
-    console.log(channel[0]);
+
     if (!channel) {
         throw new ApiError(404, "channel does not exists");
     }
