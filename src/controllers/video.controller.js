@@ -7,6 +7,7 @@ import {
 import { ApiResponce } from "../utils/ApiResponce.js";
 import { Video } from "../models/video.model.js";
 import mongoose, { isValidObjectId } from "mongoose";
+import { User } from "../models/user.model.js";
 
 // for publish a video //
 const publishAVideo = asyncHandler(async (req, res) => {
@@ -85,12 +86,9 @@ const getVideoById = asyncHandler(async (req, res) => {
         throw new ApiError(404, "invalid id");
     }
 
-    // console.log(req.user?._id, new mongoose.Types.ObjectId(videoId));
-
     if (!req.user?._id.equals(updateViews.owner._id)) {
         updateViews.views = updateViews.views + 1;
         await updateViews.save({ validateBeforeSave: false });
-
     }
 
     // finding video //
@@ -150,6 +148,13 @@ const getVideoById = asyncHandler(async (req, res) => {
         throw new ApiError(400, "invalid video id");
     }
     // end of finding video //
+
+    // updating users wathc history //
+    const user = await User.findById(req.user?._id);
+
+    user.warchHistory.push(updateViews._id);
+    await user.save({ validateBeforeSave: false });
+    // end of updating users wathc history //
 
     return res
         .status(200)
@@ -361,10 +366,6 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
 });
 // end of toggel pubish status //
 
-const getQuery = async (req, res) => {
-    res.json(req.query);
-};
-
 export {
     publishAVideo,
     getVideoById,
@@ -372,5 +373,4 @@ export {
     updateVideo,
     deleteVideo,
     togglePublishStatus,
-    getQuery,
 };
