@@ -51,9 +51,30 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
         .status(200)
         .json(new ApiResponce(200, playlist, "playlists fetched successfully"));
 });
-// end get user playlists //
+// end of get user playlists //
 
 // get playlist by id //
+const getPlaylistById = asyncHandler(async (req, res) => {
+    const { playlistId } = req.params;
+
+    if (!playlistId) {
+        throw new ApiError(404, "playlist id required");
+    }
+    if (!isValidObjectId(playlistId)) {
+        throw new ApiError(404, "invalid playlist id");
+    }
+
+    const playlist = await Playlist.findById(playlistId);
+
+    if (!playlist) {
+        throw new ApiError(400, "cant find playlist on db");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponce(200, playlist, "playlist fetched succsessfully"));
+});
+// end of get playlist by id //
 
 // add video to playlist //
 
@@ -63,4 +84,4 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
 
 // delete playlist //
 
-export { createPlaylist, getUserPlaylists };
+export { createPlaylist, getUserPlaylists, getPlaylistById };
