@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponce } from "../utils/ApiResponce.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Playlist } from "../models/playlist.model.js";
-import { isValidObjectId } from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 // create playlist //
 const createPlaylist = asyncHandler(async (req, res) => {
     const { name, description } = req.body;
@@ -64,7 +64,53 @@ const getPlaylistById = asyncHandler(async (req, res) => {
         throw new ApiError(404, "invalid playlist id");
     }
 
-    const playlist = await Playlist.findById(playlistId);
+    const playlist = await Playlist.aggregate([
+        {
+            $match: {
+                _id: new mongoose.Types.ObjectId(playlistId),
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "owner",
+                foreignField: "_id",
+                as: "owner",
+                pipeline: [
+                    {
+                        $lookup: {
+                            from: "subscriptions",
+                            localField: "_id",
+                            foreignField: "channel",
+                            as: "subscribers",
+                        },
+                    },
+                    {
+                        $addFields: {
+                            subscriberCount: {
+                                $size: "$subscribers",
+                            },
+                        },
+                    },
+                    {
+                        $project: {
+                            username: 1,
+                            fullName: 1,
+                            avatar: 1,
+                            subscriberCount: 1,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $addFields: {
+                owner: {
+                    $first: "$owner",
+                },
+            },
+        },
+    ]);
 
     if (!playlist) {
         throw new ApiError(400, "cant find playlist on db");
