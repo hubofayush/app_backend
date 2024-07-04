@@ -82,6 +82,7 @@ const getChannelSubscribers = asyncHandler(async (req, res) => {
         },
         {
             $project: {
+                username: 1,
                 subscribers: 1,
             },
         },
@@ -103,4 +104,59 @@ const getChannelSubscribers = asyncHandler(async (req, res) => {
 });
 // end of get subscrbers list of channel//
 
-export { toggelSubscription, getChannelSubscribers };
+// get subscriber subscribed to //
+const getSubscribedChannel = asyncHandler(async (req, res) => {
+    const { subscriberId } = req.params;
+
+    if (!subscriberId) {
+        throw new ApiError(404, "id is required");
+    }
+
+    const getSubscribedTo = await Subscription.aggregate([
+        {
+            $match: {
+                subscriber: new mongoose.Types.ObjectId(subscriberId),
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "channel",
+                foreignField: "_id",
+                as: "subscribedTo",
+                pipeline: [
+                    {
+                        $project: {
+                            username: 1,
+                            fullName: 1,
+                            avatar: 1,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $project: {
+                subscribedTo: 1,
+                // subscribedToCount: 1,
+            },
+        },
+    ]);
+
+    if (getSubscribedTo.length === 0) {
+        throw new ApiError(404, "invalid id");
+    }
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponce(
+                200,
+                getSubscribedTo,
+                "subscribers of user fetched",
+            ),
+        );
+});
+// end of get subscriber subscribed to //
+
+export { toggelSubscription, getChannelSubscribers, getSubscribedChannel };
