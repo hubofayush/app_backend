@@ -171,7 +171,181 @@ const addComment = asyncHandler(async (req, res) => {
         );
 });
 // end of add a comment to a video //
-// update a comment //
-// delete a comment //
 
-export { getAllCommentsOfVideo, addComment };
+// update a comment //
+const deleteComment = asyncHandler(async (req, res) => {
+    const { commentId } = req.params;
+    if (!commentId || !isValidObjectId(commentId)) {
+        throw new ApiError(404, "invalid commentid");
+    }
+
+    const findComment = await Comment.findById(commentId);
+
+    if (!findComment) {
+        throw new ApiError(404, "invalid id");
+    }
+
+    const { content = findComment.content } = req.body;
+    if (!content) {
+        throw new ApiError(404, "content cant be empty");
+    }
+
+    findComment.content = content;
+    const updatedComment = await findComment.save({
+        validateBeforeSave: false,
+    });
+
+    const comments = await Comment.aggregate([
+        {
+            $match: {
+                video: new mongoose.Types.ObjectId(findComment.video),
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "owner",
+                foreignField: "_id",
+                as: "owner",
+                pipeline: [
+                    {
+                        $project: {
+                            username: 1,
+                            fullName: 1,
+                            avatar: 1,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $addFields: {
+                owner: {
+                    $first: "$owner",
+                },
+            },
+        },
+        {
+            $project: {
+                content: 1,
+                owner: 1,
+                createdAt: 1,
+                totalComments: 1,
+            },
+        },
+        {
+            $sort: { createdAt: -1 },
+        },
+        {
+            $skip: 0,
+        },
+        {
+            $limit: 10,
+        },
+    ]);
+
+    if (comments.length === 0) {
+        throw new ApiError(400, "cant fetched comments on db");
+    }
+    const totalComments = await Comment.countDocuments({
+        video: findComment.video,
+    });
+    return res
+        .status(200)
+        .json(
+            new ApiResponce(
+                200,
+                { comments, totalComments },
+                "comment added successfully",
+            ),
+        );
+
+    if (!updatedComment) {
+        throw new ApiError(400, "cant update comment on db");
+    }
+});
+// end of update a comment //
+
+// delete a comment //
+const updateComment = asyncHandler(async (req, res) => {
+    const { commentId } = req.params;
+    if (!commentId || !isValidObjectId(commentId)) {
+        throw new ApiError(404, "invalid commentid");
+    }
+
+    const findComment = await Comment.findById(commentId);
+    if (!findComment) {
+        throw new ApiError(404, "cant find comment with this id");
+    }
+    const videoId = findComment.video;
+
+    await Comment.findByIdAndDelete(commentId);
+
+    const comments = await Comment.aggregate([
+        {
+            $match: {
+                video: new mongoose.Types.ObjectId(videoId),
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "owner",
+                foreignField: "_id",
+                as: "owner",
+                pipeline: [
+                    {
+                        $project: {
+                            username: 1,
+                            fullName: 1,
+                            avatar: 1,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $addFields: {
+                owner: {
+                    $first: "$owner",
+                },
+            },
+        },
+        {
+            $project: {
+                content: 1,
+                owner: 1,
+                createdAt: 1,
+                totalComments: 1,
+            },
+        },
+        {
+            $sort: { createdAt: -1 },
+        },
+        {
+            $skip: 0,
+        },
+        {
+            $limit: 10,
+        },
+    ]);
+
+    if (comments.length === 0) {
+        throw new ApiError(400, "cant fetched comments on db");
+    }
+    const totalComments = await Comment.countDocuments({
+        video: videoId,
+    });
+    return res
+        .status(200)
+        .json(
+            new ApiResponce(
+                200,
+                { comments, totalComments },
+                "comment added successfully",
+            ),
+        );
+});
+// end of delete a comment //
+
+export { getAllCommentsOfVideo, addComment, updateComment, deleteComment };
