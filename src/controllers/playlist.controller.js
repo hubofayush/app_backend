@@ -126,7 +126,7 @@ const getPlaylistById = asyncHandler(async (req, res) => {
 const addVideoToPlaylist = asyncHandler(async (req, res) => {
     const { playlistId, videoId } = req.params;
 
-    if (!playlistId && !videoId) {
+    if (!playlistId || !videoId) {
         throw new ApiError(404, "playlist id and video id required");
     }
 
@@ -134,30 +134,88 @@ const addVideoToPlaylist = asyncHandler(async (req, res) => {
         throw new ApiError(404, "invalid ids");
     }
 
-    const playlist = await Playlist.findById(playlistId);
-    if (!playlist) {
-        throw new ApiError(400, "cant find playlist with this id");
-    }
-    playlist?.videos.push(videoId);
-    const updatedPlaylist = await playlist.save({ validateBeforeSave: false });
+    let data = {
+        _id: playlistId,
+        videos: { $in: [videoId] },
+    };
 
-    if (!updatedPlaylist) {
-        throw new ApiError(400, "video not added in playlist in db");
+    const findPlaylist = await Playlist.findById(playlistId);
+    if (!findPlaylist?.owner.equals(req.user?._id)) {
+        throw new ApiError(404, "owenr id and user id not mathced");
     }
 
-    return res
-        .status(200)
-        .json(
-            new ApiResponce(
-                200,
-                updatedPlaylist,
-                "video added successfully in playlist",
-            ),
+    const updatePlaylist = await Playlist.find(data);
+
+    if (updatePlaylist.length === 0) {
+        const playlist = await Playlist.findById(playlistId);
+
+        if (!playlist) {
+            throw new ApiError(400, "cant find playlist with this id");
+        }
+
+        playlist?.videos.push(videoId);
+
+        const updatedPlaylist = await playlist.save({
+            validateBeforeSave: false,
+        });
+
+        if (!updatedPlaylist) {
+            throw new ApiError(400, "video not added in playlist in db");
+        }
+        return res
+            .status(200)
+            .json(
+                new ApiResponce(
+                    200,
+                    updatedPlaylist,
+                    "video added successfully in playlist",
+                ),
+            );
+    } else {
+        res.status(200).json(
+            new ApiResponce(200, [], "video is already in playlist"),
         );
+    }
 });
 // end of add video to playlist //
 
 // remove video to playlist //
+const removeVideoFromPlaylist = asyncHandler(async (req, res) => {
+    const { playlistId, videoId } = req.params;
+
+    if (!playlistId || !videoId) {
+        throw new ApiError(404, "ids are required");
+    }
+
+    if (!isValidObjectId(playlistId) || !isValidObjectId(videoId)) {
+        throw new ApiError(404, "invalid ids");
+    }
+
+    const findPlaylist = await Playlist.findById(playlistId);
+
+    if (!findPlaylist?.owner.equals(req.user?._id)) {
+        throw new ApiError(404, "owenr id and user id not mathced");
+    }
+
+    const playlist = await Playlist.findByIdAndUpdate(
+        playlistId,
+        {
+            $pull: { videos: videoId },
+        },
+        {
+            new: true,
+        },
+    );
+
+    if (!playlist) {
+        throw new ApiError(400, "cant remove video from playlist in db");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponce(200, playlist, "video removed succssfully"));
+});
+// end of remove video to playlist //
 
 // update playlist //
 
@@ -168,4 +226,5 @@ export {
     getUserPlaylists,
     getPlaylistById,
     addVideoToPlaylist,
+    removeVideoFromPlaylist,
 };
