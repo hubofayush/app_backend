@@ -39,9 +39,60 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
         throw new ApiError(404, "invalid id");
     }
 
-    const playlist = await Playlist.find({
-        owner: userId,
-    });
+    const playlist = await Playlist.aggregate([
+        {
+            $match: {
+                owner: new mongoose.Types.ObjectId(userId),
+            },
+        },
+        {
+            $lookup: {
+                from: "videos",
+                localField: "videos",
+                foreignField: "_id",
+                as: "videosCount",
+            },
+        },
+        {
+            $lookup: {
+                from: "videos",
+                localField: "videos",
+                foreignField: "_id",
+                as: "thumbnail",
+                pipeline: [
+                    {
+                        $sort: { createdAt: -1 },
+                    },
+                    {
+                        $limit: 1,
+                    },
+                    {
+                        $project: {
+                            thumbnail: 1,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $addFields: {
+                thumbnail: {
+                    $first: "$thumbnail",
+                },
+                videosCount: {
+                    $size: "$videosCount",
+                },
+            },
+        },
+        {
+            $project: {
+                name: 1,
+                description: 1,
+                thumbnail: 1,
+                videosCount: 1,
+            },
+        },
+    ]);
 
     if (!playlist) {
         throw new ApiError(400, "cant get playlist or invalid id");
@@ -152,7 +203,9 @@ const getPlaylistById = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(new ApiResponce(200, playlist, "playlist fetched succsessfully"));
+        .json(
+            new ApiResponce(200, playlist[0], "playlist fetched succsessfully"),
+        );
 });
 // end of get playlist by id //
 
