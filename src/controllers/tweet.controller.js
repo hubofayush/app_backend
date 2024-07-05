@@ -184,6 +184,68 @@ const updateTweet = asyncHandler(async (req, res) => {
         .json(new ApiResponce(200, tweet, "tweet updated successfully"));
 });
 // end of update Tweet //
-// detele  Tweet //
 
-export { addNewTweet, getUserTwwets, updateTweet };
+// detele  Tweet //
+const deleteTweet = asyncHandler(async (req, res) => {
+    const { tweetId } = req.params;
+
+    if (!tweetId) {
+        throw new ApiError(404, "tweet id is required");
+    }
+
+    if (!isValidObjectId(tweetId)) {
+        throw new ApiError(404, "inapropriate id");
+    }
+
+    let findTweet = await Tweet.findById(tweetId);
+    if (!req.user?._id.equals(findTweet.owner)) {
+        throw new ApiError(404, "user id and tweet id not matched");
+    }
+
+    const deleteTweet = await Tweet.findByIdAndDelete(tweetId);
+    if (!deleteTweet) {
+        throw new ApiError(404, "invalid id");
+    }
+
+    const tweet = await Tweet.aggregate([
+        {
+            $match: {
+                owner: new mongoose.Types.ObjectId(req.user?._id),
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "owner",
+                foreignField: "_id",
+                as: "owner",
+                pipeline: [
+                    {
+                        $project: {
+                            username: 1,
+                            fullName: 1,
+                            avatar: 1,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $addFields: {
+                owner: {
+                    $first: "$owner",
+                },
+            },
+        },
+        {
+            $sort: { createdAt: -1 },
+        },
+    ]);
+
+    return res
+        .status(200)
+        .json(new ApiResponce(200, tweet, "tweet fetched successfully"));
+});
+// end of detele  Tweet //
+
+export { addNewTweet, getUserTwwets, updateTweet, deleteTweet };
