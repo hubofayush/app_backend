@@ -62,9 +62,59 @@ const addNewTweet = asyncHandler(async (req, res) => {
             new ApiResponce(200, updatedTweet, "tweet uploaded successfully"),
         );
 });
-
 // end of add new Tweet //
+const getUserTwwets = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+    if (!userId) {
+        throw new ApiError(404, "userId is required");
+    }
+
+    if (!isValidObjectId(userId)) {
+        throw new ApiError(404, "inapropior id");
+    }
+    const tweet = await Tweet.aggregate([
+        {
+            $match: {
+                owner: new mongoose.Types.ObjectId(userId),
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "owner",
+                foreignField: "_id",
+                as: "owner",
+                pipeline: [
+                    {
+                        $project: {
+                            username: 1,
+                            fullName: 1,
+                            avatar: 1,
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            $addFields: {
+                owner: {
+                    $first: "$owner",
+                },
+            },
+        },
+        {
+            $sort: { createdAt: -1 },
+        },
+    ]);
+
+    return res
+        .status(200)
+        .json(new ApiResponce(200, tweet, "tweet fetched successfully"));
+});
+// get user tweets //
+
+// end of get user tweets //
 // update Tweet //
 // detele  Tweet //
 
-export { addNewTweet };
+export { addNewTweet, getUserTwwets };
