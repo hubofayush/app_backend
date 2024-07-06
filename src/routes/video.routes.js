@@ -3,6 +3,7 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 import {
     deleteVideo,
     getAllVideos,
+    getChannelVideosId,
     getVideoById,
     publishAVideo,
     togglePublishStatus,
@@ -50,5 +51,9 @@ router.route("/delete-video/:videoId").delete(deleteVideo);
 // toggle publish status //
 router.route("/toggle-status/:videoId").patch(togglePublishStatus);
 // end of toggle publish status //
+
+// get channel videos //
+router.route("/user-videos/:userId").get(getChannelVideosId);
+//end of  get channel videos //
 
 export default router;

@@ -28,7 +28,7 @@ const toggleLikeVideo = asyncHandler(async (req, res) => {
             video: videoId,
             likedBy: req.user?._id,
         });
-        console.log(newLike);
+        // console.log(newLike);
         if (!newLike) {
             throw new ApiError(400, "cant liked on db");
         }

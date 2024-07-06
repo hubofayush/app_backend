@@ -377,6 +377,50 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
 });
 // end of toggel pubish status //
 
+// get channel videos by id //
+const getChannelVideosId = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+
+    if (!userId) {
+        throw new ApiError(404, "userID Required");
+    }
+
+    if (!isValidObjectId(userId)) {
+        throw new ApiError(404, "inapropriate id");
+    }
+
+    const videos = await Video.aggregate([
+        {
+            $match: {
+                owner: new mongoose.Types.ObjectId(userId),
+                isPublished: true,
+            },
+        },
+        {
+            $project: {
+                thumbnail: 1,
+                views: 1,
+                title: 1,
+                duration: 1,
+                createdAt: 1,
+            },
+        },
+        {
+            $sort: { createdAt: -1 },
+        },
+    ]);
+
+    if (videos.length === 0) {
+        return res
+            .status(200)
+            .json(new ApiResponce(200, {}, "no videos found"));
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponce(200, videos, " videos fetched found"));
+});
+// get channel videos by id //
 export {
     publishAVideo,
     getVideoById,
@@ -384,4 +428,5 @@ export {
     updateVideo,
     deleteVideo,
     togglePublishStatus,
+    getChannelVideosId,
 };
