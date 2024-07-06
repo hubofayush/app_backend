@@ -161,10 +161,28 @@ const getVideoById = asyncHandler(async (req, res) => {
     // end of finding video //
 
     // updating users wathc history //
-    const user = await User.findById(req.user?._id);
+    // const user = await User.findById(req.user?._id);
 
-    user.warchHistory.push(updateViews._id);
-    await user.save({ validateBeforeSave: false });
+    const user = await User.find({
+        _id: req.user?._id,
+        warchHistory: updateViews._id,
+    });
+
+    if (user.length === 0) {
+        await User.findByIdAndUpdate(
+            req.user?._id,
+            {
+                $push: {
+                    warchHistory: updateViews._id,
+                },
+            },
+            {
+                new: true,
+            },
+        );
+        // user.warchHistory.push(updateViews._id);
+        // await user.save({ validateBeforeSave: false });
+    }
     // end of updating users wathc history //
 
     return res
