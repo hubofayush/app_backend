@@ -45,9 +45,20 @@ const addNewTweet = asyncHandler(async (req, res) => {
             },
         },
         {
+            $lookup: {
+                from: "likes",
+                localField: "_id",
+                foreignField: "tweet",
+                as: "likes",
+            },
+        },
+        {
             $addFields: {
                 owner: {
                     $first: "$owner",
+                },
+                likes: {
+                    $size: "$likes",
                 },
             },
         },
@@ -65,7 +76,7 @@ const addNewTweet = asyncHandler(async (req, res) => {
 // end of add new Tweet //
 
 // get user tweets //
-const getUserTwwets = asyncHandler(async (req, res) => {
+const getUserTweets = asyncHandler(async (req, res) => {
     const { userId } = req.params;
     if (!userId) {
         throw new ApiError(404, "userId is required");
@@ -98,9 +109,20 @@ const getUserTwwets = asyncHandler(async (req, res) => {
             },
         },
         {
+            $lookup: {
+                from: "likes",
+                localField: "_id",
+                foreignField: "tweet",
+                as: "likes",
+            },
+        },
+        {
             $addFields: {
                 owner: {
                     $first: "$owner",
+                },
+                likes: {
+                    $size: "$likes",
                 },
             },
         },
@@ -168,9 +190,20 @@ const updateTweet = asyncHandler(async (req, res) => {
             },
         },
         {
+            $lookup: {
+                from: "likes",
+                localField: "_id",
+                foreignField: "tweet",
+                as: "likes",
+            },
+        },
+        {
             $addFields: {
                 owner: {
                     $first: "$owner",
+                },
+                likes: {
+                    $size: "$likes",
                 },
             },
         },
@@ -231,9 +264,20 @@ const deleteTweet = asyncHandler(async (req, res) => {
             },
         },
         {
+            $lookup: {
+                from: "likes",
+                localField: "_id",
+                foreignField: "tweet",
+                as: "likes",
+            },
+        },
+        {
             $addFields: {
                 owner: {
                     $first: "$owner",
+                },
+                likes: {
+                    $size: "$likes",
                 },
             },
         },
@@ -248,4 +292,4 @@ const deleteTweet = asyncHandler(async (req, res) => {
 });
 // end of detele  Tweet //
 
-export { addNewTweet, getUserTwwets, updateTweet, deleteTweet };
+export { addNewTweet, getUserTweets, updateTweet, deleteTweet };
