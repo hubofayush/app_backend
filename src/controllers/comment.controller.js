@@ -70,7 +70,9 @@ const getAllCommentsOfVideo = asyncHandler(async (req, res) => {
     if (comment.length === 0) {
         throw new ApiError(400, "cant get comments on db");
     }
+    // total comments //
     const totalComments = await Comment.countDocuments({ video: videoId });
+    // total comments //
     return res
         .status(200)
         .json(
