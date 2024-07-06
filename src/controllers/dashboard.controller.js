@@ -51,26 +51,28 @@ const getChannelStats = asyncHandler(async (req, res) => {
                         else: 0,
                     },
                 },
-                totalViews: {
-                    $cond: {
-                        if: {
-                            $gt: [{ $sum: "$views" }, 0],
-                        },
-                        then: { $sum: "$views" },
-                        else: 0,
-                    },
-                },
             },
         },
         {
-            $project: {
-                _id: 0,
-                totalLikes: 1,
-                totalSubscribers: 1,
-                totalViews: 1,
-                totalVideos: 1,
+            $group: {
+              _id: "$owner",
+              views: {
+                $sum: "$views",
+              },
+              totalSubs: {
+                $first: "$totalSubscribers",
+              },
+              totalLikes: {
+                $first: "$totalLikes",
+              },
             },
-        },
+          },
+          {
+            $project: {
+              _id:0,
+              
+            }
+          }
     ]);
 
     if (stats.length === 0) {
