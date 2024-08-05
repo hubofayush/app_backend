@@ -81,6 +81,11 @@ This backend supports a social media platform merging features of Twitter and Yo
 - **GET /api/search?query=keyword**: Search for users or posts containing the keyword.
 
 ## Database Schema
+**Databse schema Link:**
+https://app.eraser.io/workspace/lAV11lb6PZwoq4Zhm5JK?origin=share
+
+![image](https://github.com/user-attachments/assets/ebb74e0b-9529-4850-8acf-1541edf59f26)
+
 
 ### User
 - **_id**: ObjectId
