@@ -87,44 +87,6 @@ https://app.eraser.io/workspace/lAV11lb6PZwoq4Zhm5JK?origin=share
 ![image](https://github.com/user-attachments/assets/ebb74e0b-9529-4850-8acf-1541edf59f26)
 
 
-### User
-- **_id**: ObjectId
-- **username**: String
-- **email**: String
-- **password**: String
-- **profilePicture**: String
-- **bio**: String
-- **followers**: Array of ObjectIds
-- **following**: Array of ObjectIds
-- **createdAt**: Date
-- **updatedAt**: Date
-
-### Post
-- **_id**: ObjectId
-- **userId**: ObjectId (reference to User)
-- **content**: String
-- **mediaUrl**: String (optional, for video uploads)
-- **likes**: Array of ObjectIds (reference to User)
-- **comments**: Array of Comment subdocuments
-- **createdAt**: Date
-- **updatedAt**: Date
-
-### Comment
-- **_id**: ObjectId
-- **userId**: ObjectId (reference to User)
-- **postId**: ObjectId (reference to Post)
-- **content**: String
-- **createdAt**: Date
-- **updatedAt**: Date
-
-### Notification
-- **_id**: ObjectId
-- **userId**: ObjectId (reference to User receiving the notification)
-- **type**: String (e.g., 'like', 'comment', 'follow')
-- **content**: String
-- **isRead**: Boolean
-- **createdAt**: Date
-
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Follow the existing code style and include tests for new features.
 
