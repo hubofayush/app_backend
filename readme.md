@@ -43,7 +43,7 @@ This backend supports a social media platform merging features of Twitter and Yo
     ```
 4. Start the application:
     ```sh
-    npm start
+    nodemon src/index.js
     ```
 
 ## API Endpoints
