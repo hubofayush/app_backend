@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponce } from "../utils/ApiResponce.js";
 import { Subscription } from "../models/subscription.model.js";
-import mongoose from "mongoose";
+import mongoose, { isValidObjectId, Mongoose } from "mongoose";
 
 // toggle subscription //
 const toggelSubscription = asyncHandler(async (req, res) => {
@@ -111,6 +111,9 @@ const getSubscribedChannel = asyncHandler(async (req, res) => {
     if (!subscriberId) {
         throw new ApiError(404, "id is required");
     }
+    if (!isValidObjectId(subscriberId)) {
+        throw new ApiError(404, "inapropriate id");
+    }
 
     const getSubscribedTo = await Subscription.aggregate([
         {
@@ -144,7 +147,10 @@ const getSubscribedChannel = asyncHandler(async (req, res) => {
     ]);
 
     if (getSubscribedTo.length === 0) {
-        throw new ApiError(404, "invalid id");
+        // throw new ApiError(404, "invalid id");{
+        return res
+            .status(200)
+            .json(new ApiResponce(200, getSubscribedTo, "no subscribers"));
     }
 
     return res
