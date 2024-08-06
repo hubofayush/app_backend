@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponce } from "../utils/ApiResponce.js";
 import { Subscription } from "../models/subscription.model.js";
-import mongoose, { isValidObjectId, Mongoose } from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 
 // toggle subscription //
 const toggelSubscription = asyncHandler(async (req, res) => {
